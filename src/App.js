@@ -1,5 +1,6 @@
 import React,{useState, useEffect} from 'react'
 import {Box, Button , Image ,Grid, Flex} from '@chakra-ui/core'
+import {SRLWrapper} from 'simple-react-lightbox'
 
 const images =[
   {id: '1',imgName: 'image1.jpg', tag: 'free'},
@@ -20,10 +21,37 @@ const images =[
   {id: '16',imgName: 'image16.jpg', tag: 'pro'}
 ]
 
+const options ={
+  // settings : {
+  //   autoplaySpeed: 3000,
+  //    lightboxTransitionSpeed: 0.3,
+  //     lightboxTransitionTimingFunction: 'linear',
+  //     slideTransitionSpeed: 0.6,
+  //     slideTransitionTimingFunction: 'linear',
+  // },
+  // progressBar: {
+  //   backgroundColor: '#f2f2f2',
+  //   fillColor: '#000000',
+  //   height: '3px',
+  //   showProgressBar: true
+  // },
+  // buttons: {
+  //   backgroundColor: 'teal',
+  //   iconColor: 'red',
+  //   iconPadding: '13px',
+  //   showAutoplayButton: true,
+  //   showCloseButton: true,
+  //   showDownloadButton: true,
+  //   showFullscreenButton: true,
+  //   showNextButton: true,
+  //   showPrevButton: true,
+  //   size: '60px'
+  // },
+}
+
 function App() {
   const [tag, setTag] = useState('all')
 const [fiteredImages, setFilteredImages] = useState([])
-
 
 useEffect(() => {
 tag === 'all'? setFilteredImages(images) : setFilteredImages(images.filter(image=> image.tag === tag))
@@ -38,19 +66,23 @@ tag === 'all'? setFilteredImages(images) : setFilteredImages(images.filter(image
         <TagButton name='pro' handleSetTag={setTag}  tagActive={tag === 'pro' ? true : false} />
       </Box>
 
+      <SRLWrapper options={options}>
       <Flex margin='auto' w={{md: '80%'}}>
         <Grid align='center' m={10} templateColumns= 'repeat(4,1fr)' gap={6}>
         {fiteredImages.map(image=> (
-          <Box key={images.id}  p={5} borderWidth='1px'rounded='md' >
-            <Image src ={`/images/${image.imgName}`} alt={image.imgName} />
+          <Box key={images.id}  p={5} borderWidth='1px'rounded='sm' >
+            {/* enabling light box effect using the anchor tag */}
+            <a href= {`/images/${image.imgName}`} >
+              <Image src ={`/images/${image.imgName}`} alt={image.imgName} />
+            </a>
           </Box>
           ) )}
         </Grid>
       </Flex>
+      </SRLWrapper>
     </Box>
   )
 }
-
 
 const TagButton = ({name, handleSetTag, tagActive}) =>{
   return <Button  tagActive={`tag ${tagActive ? 'active' : null}`}  _focus={{
