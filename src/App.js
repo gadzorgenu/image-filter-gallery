@@ -53,7 +53,10 @@ tag === 'all'? setFilteredImages(images) : setFilteredImages(images.filter(image
 
 
 const TagButton = ({name, handleSetTag, tagActive}) =>{
-  return <Button tagActive={`tag ${tagActive ? 'active' : null}`} variantColor='transparent'mr={5} m={5} onClick={()=> handleSetTag(name)} >
+  return <Button  tagActive={`tag ${tagActive ? 'active' : null}`}  _focus={{
+    borderBottom: '1px',
+    fontWeight: 'bold'
+  }}  variantColor='transparent'mr={5} m={5} onClick={()=> handleSetTag(name)} >
   {name.toUpperCase()}
   </Button >
 }
