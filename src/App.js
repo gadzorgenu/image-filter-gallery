@@ -31,11 +31,11 @@ tag === 'all'? setFilteredImages(images) : setFilteredImages(images.filter(image
 
   return (
     <Box>
-      <Box textAlign='center' py={3} bg='blue.400'>
-        <TagButton name='all' handleSetTag={setTag}/>
-        <TagButton name='new' handleSetTag={setTag}/>
-        <TagButton name='free' handleSetTag={setTag}/>
-        <TagButton name='pro' handleSetTag={setTag}/>
+      <Box textAlign='center' py={3} bg='blue.600'>
+        <TagButton name='all' handleSetTag={setTag}  tagActive={tag === 'all' ? true : false} />
+        <TagButton name='new' handleSetTag={setTag}  tagActive={tag === 'new' ? true : false} />
+        <TagButton name='free' handleSetTag={setTag} tagActive={tag === 'free' ? true : false} />
+        <TagButton name='pro' handleSetTag={setTag}  tagActive={tag === 'pro' ? true : false} />
       </Box>
 
       <Flex margin='auto' w={{md: '80%'}}>
@@ -52,8 +52,8 @@ tag === 'all'? setFilteredImages(images) : setFilteredImages(images.filter(image
 }
 
 
-const TagButton = ({name, handleSetTag}) =>{
-  return <Button variantColor='teal'mr={5} m={5} onClick={()=> handleSetTag(name)} >
+const TagButton = ({name, handleSetTag, tagActive}) =>{
+  return <Button tagActive={`tag ${tagActive ? 'active' : null}`} variantColor='transparent'mr={5} m={5} onClick={()=> handleSetTag(name)} >
   {name.toUpperCase()}
   </Button >
 }
